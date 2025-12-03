@@ -25,6 +25,7 @@ Route::post('/register', [FrontendController::class, 'register']);
 
 Route::get('/login', [FrontendController::class, 'loginPage']);
 Route::post('/login', [FrontendController::class, 'login']);
+Route::post('/logout', [FrontendController::class, 'logout']);
 
 Route::get('/products', [FrontendController::class, 'products']);
 Route::post('/products', [FrontendController::class, 'addProduct']);

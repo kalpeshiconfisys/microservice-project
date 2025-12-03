@@ -133,6 +133,13 @@
             <p class="msg">{{ session('msg') }}</p>
         @endif
 
+        <div style="text-align: right; margin-bottom: 15px;">
+            <form method="POST" action="/logout">
+                @csrf
+                <button type="submit" style="background:#ef4444;">Logout</button>
+            </form>
+        </div>
+
         <table>
             <tr>
                 <th>Name</th>

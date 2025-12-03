@@ -54,6 +54,10 @@ class FrontendController extends Controller
         $token = session('token');
         $products = Http::withToken($token)->get("http://127.0.0.1:8002/api/products")->json();
 
+
+        if(!$token){
+            return redirect('/login');
+        }
         return view('products', compact('products'));
     }
 
@@ -100,5 +104,10 @@ class FrontendController extends Controller
         Http::withToken($token)->delete("http://127.0.0.1:8002/api/products/$id");
 
         return back()->with('msg', 'Product Deleted!');
+    }
+
+    public function logout(){
+        session()->forget('token');
+        return redirect('/login');
     }
 }
