@@ -1,0 +1,27 @@
+services:
+  auth-service:
+    build:
+      context: ./auth-service
+      dockerfile: Dockerfile
+    image: microservice-auth-service
+    container_name: auth-service
+    ports:
+      - "8001:8000"
+
+  product-service:
+    build:
+      context: ./product-service
+      dockerfile: Dockerfile
+    image: microservice-product-service
+    container_name: product-service
+    ports:
+      - "8002:8000"
+
+  frontend-service:
+    build:
+      context: ./frontend-service
+      dockerfile: Dockerfile
+    image: microservice-frontend-service
+    container_name: frontend-service
+    ports:
+      - "8000:8000"

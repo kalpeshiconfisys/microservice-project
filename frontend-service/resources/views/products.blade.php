@@ -32,8 +32,8 @@
 
         table th {
             padding: 12px;
-            background: #4f46e5;
-            color: white;
+            background: #efeff0;
+            color: black;
         }
         table td {
             padding: 12px;
@@ -142,13 +142,15 @@
 
         <table>
             <tr>
+                <th>#</th>
                 <th>Name</th>
                 <th>Price (₹)</th>
                 <th>Action</th>
             </tr>
 
-            @foreach($products as $p)
+            @foreach($products as $key => $p)
             <tr>
+                <td>{{ $key + 1 }}</td>
                 <td>{{ $p['name'] }}</td>
                 <td>{{ $p['price'] }}</td>
                 <td>
