@@ -9,11 +9,13 @@ class FrontendController extends Controller
 {
     // ------------------ AUTH ---------------------
 
-    public function registerPage() {
+    public function registerPage()
+    {
         return view('register');
     }
 
-    public function register(Request $request) {
+    public function register(Request $request)
+    {
 
         Http::post("http://127.0.0.1:8001/api/register", [
             "name" => $request->name,
@@ -25,11 +27,13 @@ class FrontendController extends Controller
         return redirect('/login')->with('msg', 'Registered Successfully');
     }
 
-    public function loginPage() {
+    public function loginPage()
+    {
         return view('login');
     }
 
-    public function login(Request $request) {
+    public function login(Request $request)
+    {
 
         $response = Http::post("http://127.0.0.1:8001/api/login", [
             "email" => $request->email,
@@ -47,25 +51,27 @@ class FrontendController extends Controller
 
     // ------------------ PRODUCTS ---------------------
 
-    public function products() {
+    public function products()
+    {
 
         $token = session('token');
         $products = Http::withToken($token)->get("http://127.0.0.1:8002/api/products")->json();
 
-
-        if(!$token){
+        if (!$token) {
             return redirect('/login');
         }
+
         return view('products', compact('products'));
     }
 
-   public function addProduct(Request $request) {
-    $request->validate([
-        'name' => 'required|string|max:255',
-        'price' => 'required|numeric|min:0'
-    ]);
+    public function addProduct(Request $request)
+    {
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'price' => 'required|numeric|min:0'
+        ]);
 
-    $token = session('token');
+        $token = session('token');
 
         $response = Http::withToken($token)
             ->withHeaders(['Accept' => 'application/json'])
@@ -74,12 +80,12 @@ class FrontendController extends Controller
                 "price" => $request->price
             ]);
 
-        if($response->successful()){
+        if ($response->successful()) {
             return back()->with('msg', 'Product Added!');
         } else {
             return back()->with('msg', 'Failed to add product. Check input or token.');
         }
-}
+    }
 
 
 
@@ -104,7 +110,8 @@ class FrontendController extends Controller
         return back()->with('msg', 'Product Deleted!');
     }
 
-    public function logout(){
+    public function logout()
+    {
         session()->forget('token');
         return redirect('/login');
     }
